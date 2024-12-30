@@ -6,19 +6,19 @@ import java.sql.Statement;
 
 /**
  * @ClassName SqlExec
- * @Description TODO
+ * @Description execute sql
  * @Author Lixuyi
- * @Data 2022/3/1 18:29
+ * @Data 2024/3/1 18:29
  * @Version 1.0
  **/
 public class SqlExec {
 
     public void ExecSql(Connection conn, String sql){
         System.out.println("executing sql => " + sql);
-        if (sql.trim().toLowerCase().startsWith("select")){
+        if (sql.trim().toLowerCase().startsWith("select")){ // select sql
             querySql(conn, sql);
         }else {
-            if (sql.trim().toLowerCase().startsWith("desc")){
+            if (sql.trim().toLowerCase().startsWith("desc")){ // desc sql
                 showColumnName(conn, sql);
             }else {
                 executeSql(conn, sql);
@@ -43,9 +43,9 @@ public class SqlExec {
             res = stmt.executeQuery(sql);
             int columnNum = res.getMetaData().getColumnCount();
             byte printName = 0;
-            try { // 使用格式化输出工具，如果报错，就使用普通输出工具
+            try { // use format tools to display the data
                 ResultSetPrinter.printResultSet(res);
-            }catch (Exception e) { // 出错的情况
+            }catch (Exception e) { // format data failed
                 System.out.println("-*-print format error-*-print format error-*-print format error-*-print format error-*-");
                 System.out.println("-*-print format error-*-print format error-*-print format error-*-print format error-*-");
                 System.out.println("-*-print format error-*-print format error-*-print format error-*-print format error-*-");

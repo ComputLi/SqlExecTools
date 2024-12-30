@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 /**
  * @ClassName ResultSetPrinter
- * @Description TODO
+ * @Description output select sql result
  * @Author Lixuyi
  * @Data 2022/3/2 14:08
  * @Version 1.0
@@ -17,26 +17,24 @@ public class ResultSetPrinter {
     public static void printResultSet(ResultSet rs) throws SQLException {
         Scanner scanner = new Scanner(System.in);
         ResultSetMetaData resultSetMetaData = rs.getMetaData();
-        // 获取列数
+        // get max lines
         int ColumnCount = resultSetMetaData.getColumnCount();
-        // 保存当前列最大长度的数组
+        // sava max array length
         int[] columnMaxLengths = new int[ColumnCount];
-        // 缓存结果集,结果集可能有序,所以用ArrayList保存变得打乱顺序.
+        // cache result, using array list to save the data order
         ArrayList<String[]> results = new ArrayList<>();
-        // 按行遍历
         while (rs.next()) {
-            // 保存当前行所有列
+            // save all column for row data
             String[] columnStr = new String[ColumnCount];
-            // 获取属性值.
             for (int i = 0; i < ColumnCount; i++) {
-                // 获取一列
+                // get column data
                 columnStr[i] = rs.getString(i + 1);
-                // 计算当前列的最大长度
+                // compute max length for data
                 columnMaxLengths[i] = Math.max(columnMaxLengths[i], (columnStr[i] == null) ? 0 : columnStr[i].length());
             }
-            // 缓存这一行.
+            // cache this data
             results.add(columnStr);
-            if (results.size() >= 1000) {
+            if (results.size() >= 1000) { // if the data rows more than 1000,print this data,and input y for continue
                 outputResult(ColumnCount, columnMaxLengths, resultSetMetaData, results);
                 results.clear();
                 boolean continueKey = false;
@@ -64,7 +62,7 @@ public class ResultSetPrinter {
         printSeparator(columnMaxLengths);
         printColumnName(resultSetMetaData, columnMaxLengths);
         printSeparator(columnMaxLengths);
-        // 遍历集合输出结果
+        // out put ResultSet
         Iterator<String[]> iterator = results.iterator();
         String[] columnStr;
         while (iterator.hasNext()) {
@@ -78,16 +76,14 @@ public class ResultSetPrinter {
     }
 
     /**
-     * 输出列名.
-     *
-     * @param resultSetMetaData 结果集的元数据对象.
-     * @param columnMaxLengths  每一列最大长度的字符串的长度.
+     * @desc output column names for a table
+     * @param resultSetMetaData jdbc result set select * from table where 1=0
+     * @param columnMaxLengths  column max length
      * @throws SQLException
      */
     private static void printColumnName(ResultSetMetaData resultSetMetaData, int[] columnMaxLengths) throws SQLException {
         int columnCount = resultSetMetaData.getColumnCount();
         for (int i = 0; i < columnCount; i++) {
-            // System.out.printf("|%" + (columnMaxLengths[i] + 1) + "s", resultSetMetaData.getColumnName(i + 1));
             columnMaxLengths[i] = columnMaxLengths[i] <4 ? 4 : columnMaxLengths[i];
             System.out.printf("|%-" + columnMaxLengths[i] + "s", resultSetMetaData.getColumnName(i + 1));
         }
@@ -97,12 +93,11 @@ public class ResultSetPrinter {
     /**
      * 输出分隔符.
      *
-     * @param columnMaxLengths 保存结果集中每一列的最长的字符串的长度.
+     * @param columnMaxLengths save max length for the column
      */
     private static void printSeparator(int[] columnMaxLengths) {
         for (int i = 0; i < columnMaxLengths.length; i++) {
             System.out.print("+");
-            // for (int j = 0; j < columnMaxLengths[i] + 1; j++) {
             for (int j = 0; j < columnMaxLengths[i]; j++) {
                 System.out.print("-");
             }

@@ -3,17 +3,18 @@ import java.util.concurrent.BlockingQueue;
 
 /**
  * @ClassName ExplainFile
- * @Description TODO
+ * @Description explain sql script file
  * @Author Lixuyi
  * @Data 2024/12/30 10:22
  * @Version 1.0
  **/
 public class ExplainFile {
 
-    protected static final String endMark = "!0end mark0!";
+    protected static final String endMark = "!0end mark0!"; // bolckQueue end mark
 
     /**
-     * @desc 逐行获取文件中的sql，暂时不支持存储过程以及函数的创建，如果需要支持，则需要修改while循环里面的判断逻辑，添加begin和end对的匹配
+     * @desc read sql script by line, sql mast end with ; ,not support function and procedure create,if want to support this,
+     *       change code 27-35 lines,and get begin\end words
      * @param sqlQueue 多线程传输sql
      * @param filePath 文件的读取路径
      * @throws FileNotFoundException
@@ -32,7 +33,7 @@ public class ExplainFile {
                 }else
                     builder.append(line);
             }
-            sqlQueue.offer(endMark);
+            sqlQueue.offer(endMark); // add file finish read mark
             reader.close();
         }catch (IOException e){
             throw new RuntimeException(e);

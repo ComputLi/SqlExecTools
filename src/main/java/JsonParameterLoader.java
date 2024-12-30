@@ -1,14 +1,12 @@
 import com.alibaba.fastjson.JSONObject;
 
 import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.List;
 
 /**
  * @ClassName JsonParameterLoader
- * @Description TODO
+ * @Description load adn get information form Configuration.json
  * @Author Lixuyi
  * @Data 2024/12/26 17:13
  * @Version 1.0
@@ -41,7 +39,7 @@ public class JsonParameterLoader {
 
     public String getJdbcJarRootPath() {
         String jarPath = getJarRootPath();
-        if (jarPath.startsWith("/")) // linux系统
+        if (jarPath.startsWith("/")) // linux system
             jarPath = jarPath + "/";
         else // windows系统
             jarPath = jarPath + "\\";
@@ -66,7 +64,7 @@ public class JsonParameterLoader {
     private String getJsonConfig() {
         String jarPath = getJarAbsolutePath();
         File configFile;
-        if (jarPath.startsWith("/")) // linux系统
+        if (jarPath.startsWith("/")) // linux system
             configFile = new File(jarPath + "/" + "Configuration.json");
         else
             configFile = new File(jarPath + "\\" + "Configuration.json");
@@ -77,8 +75,6 @@ public class JsonParameterLoader {
     }
 
     private String getJarAbsolutePath() {
-//        URL location = this.getClass().getProtectionDomain().getCodeSource().getLocation();
-        //            File jarFile = new File(location.toURI());
         File jarFile = new File("");
         String jarPath = jarFile.getAbsolutePath();
         return jarPath;
