@@ -1,0 +1,33 @@
+{
+  "jarPath": "",
+  "jdbcInfo": [
+    {
+      "dbType": "oracle",
+      "url": "jdbc:oracle:thin:@//{0}:{1}/{2}",
+      "parameterName": ["ip", "port", "serviceName"],
+      "jdbcDriver": "oracle.jdbc.OracleDriver",
+      "jarPackage": "ojdbc8-18.3.0.0.jar"
+    },
+    {
+      "dbType": "db2",
+      "url": "jdbc:db2://{0}:{1}/{2}:allowNextOnExhaustedResultSet=1",
+      "parameterName": ["ip", "port", "dbName"],
+      "jdbcDriver": "com.ibm.db2.jcc.DB2Driver",
+      "jarPackage": "jcc-11.5.0.0.jar"
+    },
+    {
+      "dbType": "mysql",
+      "url": "jdbc:mysql://{0}:{1}/{2}?serverTimezone=Asia/Shanghai&characterEncoding=UTF-8&socketTimeout=3000000&zeroDateTimeBehavior=convertToNull",
+      "parameterName": ["ip", "port", "dbName"],
+      "jdbcDriver": "com.mysql.cj.jdbc.Driver",
+      "jarPackage": "mysql-connector-java-8.0.28.jar"
+    },
+    {
+      "dbType": "dm",
+      "url": "jdbc:dm://{0}:{1}",
+      "parameterName": ["ip", "port"],
+      "jdbcDriver": "dm.jdbc.driver.DmDriver",
+      "jarPackage": "DmJdbcDriver18.jar"
+    }
+  ]
+}
