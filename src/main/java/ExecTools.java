@@ -63,11 +63,12 @@ public class ExecTools {
                 if (message.toLowerCase().contains("user") || message.contains("password")) {
                     System.out.println("you left " + i +" chance to have a try...");
                     System.out.println(message);
-                    continue;
                 }else
                     throw e;
             }
         }
+        if (connection == null)
+            throw new RuntimeException("can't connect to database");
         SqlExec sqlExec = new SqlExec();
         StringBuilder sql = new StringBuilder(); // using builder to combine more than one line sql, all sql mast be end with ;
         while (true){

@@ -36,7 +36,7 @@ public final class JdbcJarLoader {
                     }else
                         throw new RuntimeException("jdbcJarFile is not exists, please set the jar package to this path : " + jdbcJarRootPath);
                 }
-                return new URLClassLoader(urlLi.toArray(URL[]::new));
+                return new URLClassLoader(urlLi.toArray(new URL[urlLi.size()]));
             } else { // only one jar package
                 File jarFile = new File(jdbcJarRootPath + jarPackage.toString());
                 if (jarFile.exists()) {
